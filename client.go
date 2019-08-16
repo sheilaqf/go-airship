@@ -19,8 +19,36 @@ const (
 )
 
 const (
-	// Push ...
+	// PushPath ...
 	PushPath = "push"
+	// ReportsPath ...
+	ReportsPath = "reports"
+	// ReportsDevicesPath ...
+	ReportsDevicesPath = "devices"
+	// FeedsPath ...
+	FeedsPath = "feeds"
+	// SchedulesPath ...
+	SchedulesPath = "schedules"
+	// PipelinesPath ...
+	PipelinesPath = "pipelines"
+	// ExperimentsPath ...
+	ExperimentsPath = "experiments"
+	// TemplatesPath ...
+	TemplatesPath = "templates"
+	// RegionsPath ...
+	RegionsPath = "regions"
+	// ChannelsPath ...
+	ChannelsPath = "channels"
+	// NamedUsersPath ...
+	NamedUsersPath = "named_users"
+	// SegmentsPath ...
+	SegmentsPath = "segements"
+	// LocationPath ...
+	LocationPath = "location"
+	// ListsPath ...
+	ListsPath = "lists"
+	// CreateAndSendPath ...
+	CreateAndSendPath = "create-and-send"
 )
 
 // Client holds the client for localytics
@@ -28,7 +56,19 @@ type Client struct {
 	sling *sling.Sling
 	opts  *Opts
 
-	Push *PushService
+	Push          *PushService
+	Reports       *ReportsService
+	Feeds         *FeedsService
+	Schedules     *SchedulesService
+	Pipelines     *PipelinesService
+	Experiments   *ExperimentsService
+	Templates     *TemplatesService
+	Regions       *RegionsService
+	Channels      *ChannelsService
+	NamedUsers    *NamedUsersService
+	Location      *LocationService
+	Lists         *ListsService
+	CreateAndSend *CreateAndSendService
 }
 
 // Opt is an option for the client.
@@ -57,7 +97,8 @@ func Auth(key string, secret string) func(o *Opts) {
 	}
 }
 
-// Auth configures the API Access Key and API Master Secret.
+// EndpointURL configures the API specific endpoint.
+// There are shared constants for the already available ones.
 func EndpointURL(endpointURL string) func(o *Opts) {
 	return func(o *Opts) {
 		o.EndpointURL = endpointURL
@@ -86,7 +127,20 @@ func mustNew(httpClient *http.Client, opts ...Opt) *Client {
 	configure(c, opts...)
 	configureSling(c, httpClient)
 
+	// attaching the services ...
 	c.Push = newPushService(c.sling)
+	c.Reports = newReportsService(c.sling)
+	c.Feeds = newFeedsService(c.sling)
+	c.Schedules = newSchedulesService(c.sling)
+	c.Pipelines = newPipelinesService(c.sling)
+	c.Experiments = newExperimentsService(c.sling)
+	c.Templates = newTemplatesService(c.sling)
+	c.Regions = newRegionsService(c.sling)
+	c.Channels = newChannelsService(c.sling)
+	c.NamedUsers = newNamedUsersService(c.sling)
+	c.Location = newLocationService(c.sling)
+	c.Lists = newListsService(c.sling)
+	c.CreateAndSend = newCreateAndSendService(c.sling)
 
 	return c
 }
