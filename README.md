@@ -3,6 +3,8 @@
 [![Volkswagen](https://auchenberg.github.io/volkswagen/volkswargen_ci.svg?v=1)](https://github.com/auchenberg/volkswagen)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
+WIP - Work in Progress
+
 # go-airship
 
 go-airship is a Go library for the [Airship REST API](https://docs.airship.com/api/ua/#introduction).
