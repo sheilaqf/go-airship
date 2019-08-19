@@ -11,6 +11,6 @@ type PipelinesService struct {
 
 func newPipelinesService(sling *sling.Sling) *PipelinesService {
 	return &PipelinesService{
-		sling: sling.Path(PipelinesPath),
+		sling: sling,
 	}
 }

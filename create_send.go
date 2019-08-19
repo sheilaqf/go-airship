@@ -11,6 +11,6 @@ type CreateAndSendService struct {
 
 func newCreateAndSendService(sling *sling.Sling) *CreateAndSendService {
 	return &CreateAndSendService{
-		sling: sling.Path(CreateAndSendPath),
+		sling: sling,
 	}
 }

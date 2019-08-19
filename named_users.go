@@ -11,6 +11,6 @@ type NamedUsersService struct {
 
 func newNamedUsersService(sling *sling.Sling) *NamedUsersService {
 	return &NamedUsersService{
-		sling: sling.Path(NamedUsersPath),
+		sling: sling,
 	}
 }

@@ -128,19 +128,19 @@ func mustNew(httpClient *http.Client, opts ...Opt) *Client {
 	configureSling(c, httpClient)
 
 	// attaching the services ...
-	c.Push = newPushService(c.sling)
-	c.Reports = newReportsService(c.sling)
-	c.Feeds = newFeedsService(c.sling)
-	c.Schedules = newSchedulesService(c.sling)
-	c.Pipelines = newPipelinesService(c.sling)
-	c.Experiments = newExperimentsService(c.sling)
-	c.Templates = newTemplatesService(c.sling)
-	c.Regions = newRegionsService(c.sling)
-	c.Channels = newChannelsService(c.sling)
-	c.NamedUsers = newNamedUsersService(c.sling)
-	c.Location = newLocationService(c.sling)
-	c.Lists = newListsService(c.sling)
-	c.CreateAndSend = newCreateAndSendService(c.sling)
+	c.Push = newPushService(c.sling.New())
+	c.Reports = newReportsService(c.sling.New())
+	c.Feeds = newFeedsService(c.sling.New())
+	c.Schedules = newSchedulesService(c.sling.New())
+	c.Pipelines = newPipelinesService(c.sling.New())
+	c.Experiments = newExperimentsService(c.sling.New())
+	c.Templates = newTemplatesService(c.sling.New())
+	c.Regions = newRegionsService(c.sling.New())
+	c.Channels = newChannelsService(c.sling.New())
+	c.NamedUsers = newNamedUsersService(c.sling.New())
+	c.Location = newLocationService(c.sling.New())
+	c.Lists = newListsService(c.sling.New())
+	c.CreateAndSend = newCreateAndSendService(c.sling.New())
 
 	return c
 }

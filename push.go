@@ -177,7 +177,7 @@ type Campaign struct {
 
 func newPushService(sling *sling.Sling) *PushService {
 	return &PushService{
-		sling: sling.Path(PushPath),
+		sling: sling,
 	}
 }
 

@@ -11,6 +11,6 @@ type SegmentsService struct {
 
 func newSegmentsService(sling *sling.Sling) *SegmentsService {
 	return &SegmentsService{
-		sling: sling.Path(SegmentsPath),
+		sling: sling,
 	}
 }

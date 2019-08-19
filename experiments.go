@@ -11,6 +11,6 @@ type ExperimentsService struct {
 
 func newExperimentsService(sling *sling.Sling) *ExperimentsService {
 	return &ExperimentsService{
-		sling: sling.Path(ExperimentsPath),
+		sling: sling,
 	}
 }

@@ -11,6 +11,6 @@ type ListsService struct {
 
 func newListsService(sling *sling.Sling) *ListsService {
 	return &ListsService{
-		sling: sling.Path(ListsPath),
+		sling: sling,
 	}
 }

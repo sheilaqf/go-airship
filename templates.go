@@ -11,6 +11,6 @@ type TemplatesService struct {
 
 func newTemplatesService(sling *sling.Sling) *TemplatesService {
 	return &TemplatesService{
-		sling: sling.Path(TemplatesPath),
+		sling: sling,
 	}
 }

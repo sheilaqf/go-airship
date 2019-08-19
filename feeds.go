@@ -11,6 +11,6 @@ type FeedsService struct {
 
 func newFeedsService(sling *sling.Sling) *FeedsService {
 	return &FeedsService{
-		sling: sling.Path(FeedsPath),
+		sling: sling,
 	}
 }

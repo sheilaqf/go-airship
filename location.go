@@ -11,6 +11,6 @@ type LocationService struct {
 
 func newLocationService(sling *sling.Sling) *LocationService {
 	return &LocationService{
-		sling: sling.Path(LocationPath),
+		sling: sling,
 	}
 }

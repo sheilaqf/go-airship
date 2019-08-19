@@ -11,6 +11,6 @@ type SchedulesService struct {
 
 func newSchedulesService(sling *sling.Sling) *SchedulesService {
 	return &SchedulesService{
-		sling: sling.Path(SchedulesPath),
+		sling: sling,
 	}
 }

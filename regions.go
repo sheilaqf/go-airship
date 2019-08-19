@@ -11,6 +11,6 @@ type RegionsService struct {
 
 func newRegionsService(sling *sling.Sling) *RegionsService {
 	return &RegionsService{
-		sling: sling.Path(RegionsPath),
+		sling: sling,
 	}
 }
