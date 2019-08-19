@@ -152,7 +152,7 @@ func mustNew(httpClient *http.Client, opts ...Opt) *Client {
 func configureSling(c *Client, httpClient *http.Client) error {
 	c.sling = sling.New()
 	c.sling.Client(httpClient).SetBasicAuth(c.opts.ApiKey, c.opts.ApiSecret)
-	c.sling.Set("Accept", "application/vnd.localytics.v1+hal+json")
+	c.sling.Set("Accept", "application/vnd.urbanairship+json; version=3;")
 	c.sling.Base(c.opts.EndpointURL)
 
 	return nil
