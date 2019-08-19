@@ -71,6 +71,34 @@ type ReportsEventsParams struct {
 	PageSize int `url:"page_size,omitempty"`
 }
 
+// ReportsAppOpens ...
+type ReportsAppOpensResponse struct {
+	// Opens ...
+	Opens []*ReportsAppOpens `url:"opens,omitempty"`
+	// NextPage ...
+	NextPage string `url:"next_page,omitempty"`
+}
+
+// ReportsAppOpens ...
+type ReportsAppOpens struct {
+	// Android ...
+	Android int `json:"android"`
+	// IOS ...
+	IOS int `json:"ios"`
+	// Date ...
+	Date string `json:"date"`
+}
+
+// ReportsAppOpensParams ...
+type ReportsAppOpensParams struct {
+	// Start ...
+	Start string `url:"start"`
+	// End ...
+	End string `url:"end"`
+	// Precision ...
+	Precision string `url:"precision"`
+}
+
 func newReportsService(sling *sling.Sling) *ReportsService {
 	return &ReportsService{
 		sling: sling,
@@ -95,12 +123,30 @@ func (r *ReportsService) Devices(params *ReportsDevicesParams) (*ReportsDevicesR
 	return success, nil
 }
 
-// CustomEvents ...
+// Events ...
 func (r *ReportsService) Events(params *ReportsEventsParams) (*ReportsEventsResponse, error) {
 	success := new(ReportsEventsResponse)
 	failure := new(AirshipError)
 
 	res, err := r.sling.New().Get(path.Join(ReportsPath, ReportsEventsPath)).QueryStruct(params).Receive(success, failure)
+
+	if err != nil {
+		return nil, err
+	}
+
+	if res.StatusCode != 200 {
+		return nil, failure
+	}
+
+	return success, nil
+}
+
+// Opens ...
+func (r *ReportsService) Opens(params *ReportsAppOpensParams) (*ReportsAppOpensResponse, error) {
+	success := new(ReportsAppOpensResponse)
+	failure := new(AirshipError)
+
+	res, err := r.sling.New().Get(path.Join(ReportsPath, ReportsAppOpensPath)).QueryStruct(params).Receive(success, failure)
 
 	if err != nil {
 		return nil, err
