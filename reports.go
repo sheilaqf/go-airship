@@ -11,6 +11,12 @@ type ReportsService struct {
 	sling *sling.Sling
 }
 
+func newReportsService(sling *sling.Sling) *ReportsService {
+	return &ReportsService{
+		sling: sling,
+	}
+}
+
 // ReportsDevicesResponse ...
 type ReportsDevicesResponse struct {
 	// TotalUniqueDevices ...
@@ -27,6 +33,24 @@ type ReportsDevicesResponse struct {
 type ReportsDevicesParams struct {
 	// Date ...
 	Date string `url:"date,omitempty"`
+}
+
+// Devices ...
+func (r *ReportsService) Devices(params *ReportsDevicesParams) (*ReportsDevicesResponse, error) {
+	success := new(ReportsDevicesResponse)
+	failure := new(AirshipError)
+
+	res, err := r.sling.New().Get(path.Join(ReportsPath, ReportsDevicesPath)).QueryStruct(params).Receive(success, failure)
+
+	if err != nil {
+		return nil, err
+	}
+
+	if res.StatusCode != 200 {
+		return nil, failure
+	}
+
+	return success, nil
 }
 
 // ReportsEventsResponse ...
@@ -71,6 +95,24 @@ type ReportsEventsParams struct {
 	PageSize int `url:"page_size,omitempty"`
 }
 
+// Events ...
+func (r *ReportsService) Events(params *ReportsEventsParams) (*ReportsEventsResponse, error) {
+	success := new(ReportsEventsResponse)
+	failure := new(AirshipError)
+
+	res, err := r.sling.New().Get(path.Join(ReportsPath, ReportsEventsPath)).QueryStruct(params).Receive(success, failure)
+
+	if err != nil {
+		return nil, err
+	}
+
+	if res.StatusCode != 200 {
+		return nil, failure
+	}
+
+	return success, nil
+}
+
 // ReportsAppOpens ...
 type ReportsAppOpensResponse struct {
 	// Opens ...
@@ -99,54 +141,58 @@ type ReportsAppOpensParams struct {
 	Precision string `url:"precision"`
 }
 
-func newReportsService(sling *sling.Sling) *ReportsService {
-	return &ReportsService{
-		sling: sling,
-	}
-}
-
-// Devices ...
-func (r *ReportsService) Devices(params *ReportsDevicesParams) (*ReportsDevicesResponse, error) {
-	success := new(ReportsDevicesResponse)
-	failure := new(AirshipError)
-
-	res, err := r.sling.New().Get(path.Join(ReportsPath, ReportsDevicesPath)).QueryStruct(params).Receive(success, failure)
-
-	if err != nil {
-		return nil, err
-	}
-
-	if res.StatusCode != 200 {
-		return nil, failure
-	}
-
-	return success, nil
-}
-
-// Events ...
-func (r *ReportsService) Events(params *ReportsEventsParams) (*ReportsEventsResponse, error) {
-	success := new(ReportsEventsResponse)
-	failure := new(AirshipError)
-
-	res, err := r.sling.New().Get(path.Join(ReportsPath, ReportsEventsPath)).QueryStruct(params).Receive(success, failure)
-
-	if err != nil {
-		return nil, err
-	}
-
-	if res.StatusCode != 200 {
-		return nil, failure
-	}
-
-	return success, nil
-}
-
 // Opens ...
 func (r *ReportsService) Opens(params *ReportsAppOpensParams) (*ReportsAppOpensResponse, error) {
 	success := new(ReportsAppOpensResponse)
 	failure := new(AirshipError)
 
 	res, err := r.sling.New().Get(path.Join(ReportsPath, ReportsAppOpensPath)).QueryStruct(params).Receive(success, failure)
+
+	if err != nil {
+		return nil, err
+	}
+
+	if res.StatusCode != 200 {
+		return nil, failure
+	}
+
+	return success, nil
+}
+
+// ReportOptInsResponse ...
+type ReportOptInsResponse struct {
+	// Opens ...
+	Opens []*ReportsOptIns `url:"optins,omitempty"`
+	// NextPage ...
+	NextPage string `url:"next_page,omitempty"`
+}
+
+// ReportsOptIns ...
+type ReportsOptIns struct {
+	// Android ...
+	Android int `json:"android"`
+	// IOS ...
+	IOS int `json:"ios"`
+	// Date ...
+	Date string `json:"date"`
+}
+
+// ReportsOptInsParams ...
+type ReportsOptInsParams struct {
+	// Start ...
+	Start string `url:"start"`
+	// End ...
+	End string `url:"end"`
+	// Precision ...
+	Precision string `url:"precision"`
+}
+
+// Opens ...
+func (r *ReportsService) OptIns(params *ReportsOptInsParams) (*ReportOptInsResponse, error) {
+	success := new(ReportOptInsResponse)
+	failure := new(AirshipError)
+
+	res, err := r.sling.New().Get(path.Join(ReportsPath, ReportsOptInsPath)).QueryStruct(params).Receive(success, failure)
 
 	if err != nil {
 		return nil, err

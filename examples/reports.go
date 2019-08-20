@@ -12,8 +12,6 @@ import (
 var (
 	apiKey    string
 	apiSecret string
-
-	appID string
 )
 
 func main() {
