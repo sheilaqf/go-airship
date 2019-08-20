@@ -11,6 +11,8 @@ go-airship is a Go library for the [Airship REST API](https://docs.airship.com/a
 
 ## Features
 
+* [Reports](/reports.go)
+
 ## Documentation
 
 You can find the documentation hosted on [godoc.org](https://godoc.org/github.com/Onefootball/go-airship).
