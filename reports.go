@@ -304,3 +304,71 @@ func (r *ReportsService) Responses(params *ReportsResponsesParams) (*ReportsResp
 
 	return success, nil
 }
+
+// ReportsResponsesListResponse ...
+type ReportsResponsesListResponse struct {
+	// Opens ...
+	Pushes []*ReportsResponsesList `url:"pushes,omitempty"`
+	// NextPage ...
+	NextPage string `url:"next_page,omitempty"`
+}
+
+// ReportsResponsesList ...
+type ReportsResponsesList struct {
+	// PushUUID ...
+	PushUUID string `json:"push_uuid"`
+	// PushTime ...
+	PushTime string `json:"push_time"`
+	// PushType ...
+	PushType string `json:"push_type"`
+	// GroupID ...
+	GroupID string `json:"group_id"`
+	// DirectResponses ...
+	DirectResponses int `json:"direct_responses"`
+	// Sends ...
+	Sends int `json:"sends"`
+	// OpenChannelsSends ...
+	OpenChannelSends *ReportsOpenChannelSends `json:"open_channel_sends"`
+}
+
+// ReportsOpenChannelSends ...
+type ReportsOpenChannelSends struct {
+	// Plattforms ...
+	Platforms []*ReportsOpenChannelSendsPlattform `json:"platforms"`
+}
+
+// ReportsOpenChannelSendsPlattform ...
+type ReportsOpenChannelSendsPlattform struct {
+	// ID ...
+	ID string `json:"id"`
+	// ID ...
+	Sends int `json:"sends"`
+}
+
+// ReportsResponsesListParams ...
+type ReportsResponsesListParams struct {
+	// Start ...
+	Start string `url:"start"`
+	// End ...
+	End string `url:"end"`
+	// Precision ...
+	Precision string `url:"precision"`
+}
+
+// Responses ...
+func (r *ReportsService) ResponsesList(params *ReportsResponsesListParams) (*ReportsResponsesListResponse, error) {
+	success := new(ReportsResponsesListResponse)
+	failure := new(AirshipError)
+
+	res, err := r.sling.New().Get(path.Join(ReportsPath, ReportsResponsesListPath)).QueryStruct(params).Receive(success, failure)
+
+	if err != nil {
+		return nil, err
+	}
+
+	if res.StatusCode != 200 {
+		return nil, failure
+	}
+
+	return success, nil
+}

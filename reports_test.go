@@ -375,4 +375,61 @@ var _ = Describe("Reports", func() {
 			Ω(res).Should(Equal(resp))
 		})
 	})
+
+	Describe("Get reponses list report with only required params", func() {
+		var res *airship.ReportsResponsesListResponse
+		var params *airship.ReportsResponsesListParams
+		var resp *airship.ReportsResponsesListResponse
+		var err error
+
+		BeforeEach(func() {
+			resp = &airship.ReportsResponsesListResponse{
+				Pushes: []*airship.ReportsResponsesList{
+					&airship.ReportsResponsesList{
+						PushUUID:        "f4db3752-a982-4a2b-994e-7b5fd1c7f02f",
+						PushTime:        "2018-08-15 02:12:22",
+						PushType:        "UNICAST_PUSH",
+						GroupID:         "4e768dc7-4ebc-4206-890a-60b5627763a7",
+						DirectResponses: 0,
+						Sends:           1,
+						OpenChannelSends: &airship.ReportsOpenChannelSends{
+							Platforms: []*airship.ReportsOpenChannelSendsPlattform{},
+						},
+					},
+				},
+			}
+
+			mux.HandleFunc("/api/reports/responses/list", func(w http.ResponseWriter, r *http.Request) {
+				Ω(r.Method).Should(Equal("GET"))
+
+				p := r.URL.Query()
+				Ω(p.Get("start")).Should(Equal(params.Start))
+				Ω(p.Get("end")).Should(Equal(params.End))
+				Ω(p.Get("precision")).Should(Equal(params.Precision))
+
+				w.Header().Set("Content-Type", "application/vnd.urbanairship+json; version=3;")
+
+				b, err := json.Marshal(resp)
+				Ω(err).Should(BeNil())
+
+				w.Write(b)
+			})
+
+			params = &airship.ReportsResponsesListParams{
+				Start:     "2018-08-28 00:00:00",
+				End:       "2018-08-29 13:30:45",
+				Precision: "HOURLY",
+			}
+
+			res, err = client.Reports.ResponsesList(params)
+		})
+
+		It("should not return an error", func() {
+			Ω(err).Should(BeNil())
+		})
+
+		It("should contain all the information", func() {
+			Ω(res).Should(Equal(resp))
+		})
+	})
 })
