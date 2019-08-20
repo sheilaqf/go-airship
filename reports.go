@@ -38,8 +38,8 @@ func newReportsService(sling *sling.Sling) *ReportsService {
 	}
 }
 
-// ReportsDevicesResponse ...
-type ReportsDevicesResponse struct {
+// GetDevicesResponse ...
+type GetDevicesResponse struct {
 	// TotalUniqueDevices ...
 	TotalUniqueDevices int `json:"total_unique_devices"`
 	// DateClosed ...
@@ -50,15 +50,15 @@ type ReportsDevicesResponse struct {
 	Counts map[string]map[string]int `json:"counts"`
 }
 
-// ReportDevicesParams ...
-type ReportsDevicesParams struct {
+// GetDevicesParams ...
+type GetDevicesParams struct {
 	// Date ...
 	Date string `url:"date,omitempty"`
 }
 
 // Devices ...
-func (r *ReportsService) Devices(params *ReportsDevicesParams) (*ReportsDevicesResponse, error) {
-	success := new(ReportsDevicesResponse)
+func (r *ReportsService) GetDevices(params *GetDevicesParams) (*GetDevicesResponse, error) {
+	success := new(GetDevicesResponse)
 	failure := new(AirshipError)
 
 	res, err := r.sling.New().Get(ReportsDevicesPath).QueryStruct(params).Receive(success, failure)
@@ -74,8 +74,8 @@ func (r *ReportsService) Devices(params *ReportsDevicesParams) (*ReportsDevicesR
 	return success, nil
 }
 
-// ReportsEventsResponse ...
-type ReportsEventsResponse struct {
+// GetEventsResponse ...
+type GetEventsResponse struct {
 	// OK ...
 	OK bool `json:",omitempty"`
 	// TotalValue ...
@@ -102,8 +102,8 @@ type ReportsEvent struct {
 	Value int `json:"value,omitempty"`
 }
 
-// ReportsEventsParams ...
-type ReportsEventsParams struct {
+// GetEventsParams ...
+type GetEventsParams struct {
 	// Start ...
 	Start string `url:"start"`
 	// End ...
@@ -117,8 +117,8 @@ type ReportsEventsParams struct {
 }
 
 // Events ...
-func (r *ReportsService) Events(params *ReportsEventsParams) (*ReportsEventsResponse, error) {
-	success := new(ReportsEventsResponse)
+func (r *ReportsService) GetEvents(params *GetEventsParams) (*GetEventsResponse, error) {
+	success := new(GetEventsResponse)
 	failure := new(AirshipError)
 
 	res, err := r.sling.New().Get(ReportsEventsPath).QueryStruct(params).Receive(success, failure)
@@ -134,8 +134,8 @@ func (r *ReportsService) Events(params *ReportsEventsParams) (*ReportsEventsResp
 	return success, nil
 }
 
-// ReportsAppOpens ...
-type ReportsAppOpensResponse struct {
+// ListAppOpens ...
+type ListAppOpensResponse struct {
 	// Opens ...
 	Opens []*ReportsAppOpens `url:"opens,omitempty"`
 	// NextPage ...
@@ -152,8 +152,8 @@ type ReportsAppOpens struct {
 	Date string `json:"date"`
 }
 
-// ReportsAppOpensParams ...
-type ReportsAppOpensParams struct {
+// ListAppOpensParams ...
+type ListAppOpensParams struct {
 	// Start ...
 	Start string `url:"start"`
 	// End ...
@@ -163,8 +163,8 @@ type ReportsAppOpensParams struct {
 }
 
 // Opens ...
-func (r *ReportsService) Opens(params *ReportsAppOpensParams) (*ReportsAppOpensResponse, error) {
-	success := new(ReportsAppOpensResponse)
+func (r *ReportsService) ListOpens(params *ListAppOpensParams) (*ListAppOpensResponse, error) {
+	success := new(ListAppOpensResponse)
 	failure := new(AirshipError)
 
 	res, err := r.sling.New().Get(ReportsAppOpensPath).QueryStruct(params).Receive(success, failure)
@@ -180,8 +180,8 @@ func (r *ReportsService) Opens(params *ReportsAppOpensParams) (*ReportsAppOpensR
 	return success, nil
 }
 
-// ReportOptInsResponse ...
-type ReportOptInsResponse struct {
+// ListOptInsResponse ...
+type ListOptInsResponse struct {
 	// OptIns ...
 	OptIns []*ReportsOptIns `url:"optins,omitempty"`
 	// NextPage ...
@@ -198,8 +198,8 @@ type ReportsOptIns struct {
 	Date string `json:"date"`
 }
 
-// ReportsOptInsParams ...
-type ReportsOptInsParams struct {
+// ListOptInsParams ...
+type ListOptInsParams struct {
 	// Start ...
 	Start string `url:"start"`
 	// End ...
@@ -209,8 +209,8 @@ type ReportsOptInsParams struct {
 }
 
 // OptIns ...
-func (r *ReportsService) OptIns(params *ReportsOptInsParams) (*ReportOptInsResponse, error) {
-	success := new(ReportOptInsResponse)
+func (r *ReportsService) ListOptIns(params *ListOptInsParams) (*ListOptInsResponse, error) {
+	success := new(ListOptInsResponse)
 	failure := new(AirshipError)
 
 	res, err := r.sling.New().Get(ReportsOptInsPath).QueryStruct(params).Receive(success, failure)
@@ -226,8 +226,8 @@ func (r *ReportsService) OptIns(params *ReportsOptInsParams) (*ReportOptInsRespo
 	return success, nil
 }
 
-// ReportOptOutsResponse ...
-type ReportOptOutsResponse struct {
+// ListOptOutsResponse ...
+type ListOptOutsResponse struct {
 	// OptOuts ...
 	OptOuts []*ReportsOptOuts `url:"optouts,omitempty"`
 	// NextPage ...
@@ -244,8 +244,8 @@ type ReportsOptOuts struct {
 	Date string `json:"date"`
 }
 
-// ReportsOptOutsParams ...
-type ReportsOptOutsParams struct {
+// ListOptOutsParams ...
+type ListOptOutsParams struct {
 	// Start ...
 	Start string `url:"start"`
 	// End ...
@@ -255,8 +255,8 @@ type ReportsOptOutsParams struct {
 }
 
 // OptOuts ...
-func (r *ReportsService) OptOuts(params *ReportsOptOutsParams) (*ReportOptOutsResponse, error) {
-	success := new(ReportOptOutsResponse)
+func (r *ReportsService) ListOptOuts(params *ListOptOutsParams) (*ListOptOutsResponse, error) {
+	success := new(ListOptOutsResponse)
 	failure := new(AirshipError)
 
 	res, err := r.sling.New().Get(ReportsOptOutsPath).QueryStruct(params).Receive(success, failure)
@@ -272,8 +272,8 @@ func (r *ReportsService) OptOuts(params *ReportsOptOutsParams) (*ReportOptOutsRe
 	return success, nil
 }
 
-// ReportsResponsesResponse ...
-type ReportsResponsesResponse struct {
+// ListResponsesResponse ...
+type ListResponsesResponse struct {
 	// Responses ...
 	Responses []*ReportsResponses `url:"responses,omitempty"`
 	// NextPage ...
@@ -298,8 +298,8 @@ type ReportsResponsesStats struct {
 	Influenced int `json:"influenced"`
 }
 
-// ReportsResponsesParams ...
-type ReportsResponsesParams struct {
+// ListResponsesParams ...
+type ListResponsesParams struct {
 	// Start ...
 	Start string `url:"start"`
 	// End ...
@@ -309,8 +309,8 @@ type ReportsResponsesParams struct {
 }
 
 // Responses ...
-func (r *ReportsService) Responses(params *ReportsResponsesParams) (*ReportsResponsesResponse, error) {
-	success := new(ReportsResponsesResponse)
+func (r *ReportsService) ListResponses(params *ListResponsesParams) (*ListResponsesResponse, error) {
+	success := new(ListResponsesResponse)
 	failure := new(AirshipError)
 
 	res, err := r.sling.New().Get(ReportsResponsesPath).QueryStruct(params).Receive(success, failure)
@@ -326,8 +326,8 @@ func (r *ReportsService) Responses(params *ReportsResponsesParams) (*ReportsResp
 	return success, nil
 }
 
-// ReportsResponsesListResponse ...
-type ReportsResponsesListResponse struct {
+// ListResponsePushesResponse ...
+type ListResponsePushesResponse struct {
 	// Opens ...
 	Pushes []*ReportsResponsesList `url:"pushes,omitempty"`
 	// NextPage ...
@@ -366,8 +366,8 @@ type ReportsOpenChannelSendsPlattform struct {
 	Sends int `json:"sends"`
 }
 
-// ReportsResponsesListParams ...
-type ReportsResponsesListParams struct {
+// ListResponsePushesParams ...
+type ListResponsePushesParams struct {
 	// Start ...
 	Start string `url:"start"`
 	// End ...
@@ -377,8 +377,8 @@ type ReportsResponsesListParams struct {
 }
 
 // Responses ...
-func (r *ReportsService) ResponsesList(params *ReportsResponsesListParams) (*ReportsResponsesListResponse, error) {
-	success := new(ReportsResponsesListResponse)
+func (r *ReportsService) ListReponsePushes(params *ListResponsePushesParams) (*ListResponsePushesResponse, error) {
+	success := new(ListResponsePushesResponse)
 	failure := new(AirshipError)
 
 	res, err := r.sling.New().Get(ReportsResponsesListPath).QueryStruct(params).Receive(success, failure)
@@ -394,8 +394,8 @@ func (r *ReportsService) ResponsesList(params *ReportsResponsesListParams) (*Rep
 	return success, nil
 }
 
-// ReportsSendsResponse ...
-type ReportsSendsResponse struct {
+// ListSendsResponse ...
+type ListSendsResponse struct {
 	// Sends ...
 	Sends []*ReportsSends `url:"sends,omitempty"`
 	// NextPage ...
@@ -412,8 +412,8 @@ type ReportsSends struct {
 	Date string `json:"date"`
 }
 
-// ReportsSendsParams ...
-type ReportsSendsParams struct {
+// ListSendsParams ...
+type ListSendsParams struct {
 	// Start ...
 	Start string `url:"start"`
 	// End ...
@@ -423,8 +423,8 @@ type ReportsSendsParams struct {
 }
 
 // Sends ...
-func (r *ReportsService) Sends(params *ReportsSendsParams) (*ReportsSendsResponse, error) {
-	success := new(ReportsSendsResponse)
+func (r *ReportsService) ListSends(params *ListSendsParams) (*ListSendsResponse, error) {
+	success := new(ListSendsResponse)
 	failure := new(AirshipError)
 
 	res, err := r.sling.New().Get(ReportsSendsPath).QueryStruct(params).Receive(success, failure)
@@ -440,16 +440,16 @@ func (r *ReportsService) Sends(params *ReportsSendsParams) (*ReportsSendsRespons
 	return success, nil
 }
 
-// ReportsTimeInAppResponse ...
-type ReportsTimeInAppResponse struct {
+// ListTimeInAppResponse ...
+type ListTimeInAppResponse struct {
 	// Sends ...
 	Sends []*ReportsSends `url:"sends,omitempty"`
 	// NextPage ...
 	NextPage string `url:"next_page,omitempty"`
 }
 
-// ReportsTimeInAppParams ...
-type ReportsTimeInAppParams struct {
+// ListTimeInAppParams ...
+type ListTimeInAppParams struct {
 	// Start ...
 	Start string `url:"start"`
 	// End ...
@@ -459,8 +459,8 @@ type ReportsTimeInAppParams struct {
 }
 
 // Sends ...
-func (r *ReportsService) TimeInApp(params *ReportsTimeInAppParams) (*ReportsTimeInAppResponse, error) {
-	success := new(ReportsTimeInAppResponse)
+func (r *ReportsService) ListTimeInApp(params *ListTimeInAppParams) (*ListTimeInAppResponse, error) {
+	success := new(ListTimeInAppResponse)
 	failure := new(AirshipError)
 
 	res, err := r.sling.New().Get(ReportsTimeInAppPath).QueryStruct(params).Receive(success, failure)

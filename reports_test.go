@@ -28,13 +28,13 @@ var _ = Describe("Reports", func() {
 	})
 
 	Describe("Get devices reports with empty query", func() {
-		var res *airship.ReportsDevicesResponse
-		var params *airship.ReportsDevicesParams
-		var resp *airship.ReportsDevicesResponse
+		var res *airship.GetDevicesResponse
+		var params *airship.GetDevicesParams
+		var resp *airship.GetDevicesResponse
 		var err error
 
 		BeforeEach(func() {
-			resp = &airship.ReportsDevicesResponse{
+			resp = &airship.GetDevicesResponse{
 				TotalUniqueDevices: 1,
 				DateClosed:         "2019-08-18 00:00:00",
 				DateComputed:       "2019-08-19 06:08:04",
@@ -59,9 +59,9 @@ var _ = Describe("Reports", func() {
 				w.Write(b)
 			})
 
-			params = &airship.ReportsDevicesParams{}
+			params = &airship.GetDevicesParams{}
 
-			res, err = client.Reports.Devices(params)
+			res, err = client.Reports.GetDevices(params)
 		})
 
 		It("should not return an error", func() {
@@ -74,7 +74,7 @@ var _ = Describe("Reports", func() {
 	})
 
 	Describe("Return an error with the api", func() {
-		var params *airship.ReportsDevicesParams
+		var params *airship.GetDevicesParams
 		var airshipErr *airship.AirshipError
 		var err error
 
@@ -96,9 +96,9 @@ var _ = Describe("Reports", func() {
 				w.Write(b)
 			})
 
-			params = &airship.ReportsDevicesParams{}
+			params = &airship.GetDevicesParams{}
 
-			_, err = client.Reports.Devices(params)
+			_, err = client.Reports.GetDevices(params)
 		})
 
 		It("should not return an error", func() {
@@ -111,13 +111,13 @@ var _ = Describe("Reports", func() {
 	})
 
 	Describe("Get events report with only required params", func() {
-		var res *airship.ReportsEventsResponse
-		var params *airship.ReportsEventsParams
-		var resp *airship.ReportsEventsResponse
+		var res *airship.GetEventsResponse
+		var params *airship.GetEventsParams
+		var resp *airship.GetEventsResponse
 		var err error
 
 		BeforeEach(func() {
-			resp = &airship.ReportsEventsResponse{
+			resp = &airship.GetEventsResponse{
 				OK:         true,
 				TotalValue: 1,
 				TotalCount: 1,
@@ -148,13 +148,13 @@ var _ = Describe("Reports", func() {
 				w.Write(b)
 			})
 
-			params = &airship.ReportsEventsParams{
+			params = &airship.GetEventsParams{
 				Start:     "2018-08-28 00:00:00",
 				End:       "2018-08-29 13:30:45",
 				Precision: "HOURLY",
 			}
 
-			res, err = client.Reports.Events(params)
+			res, err = client.Reports.GetEvents(params)
 		})
 
 		It("should not return an error", func() {
@@ -167,13 +167,13 @@ var _ = Describe("Reports", func() {
 	})
 
 	Describe("Get app opens report with only required params", func() {
-		var res *airship.ReportsAppOpensResponse
-		var params *airship.ReportsAppOpensParams
-		var resp *airship.ReportsAppOpensResponse
+		var res *airship.ListAppOpensResponse
+		var params *airship.ListAppOpensParams
+		var resp *airship.ListAppOpensResponse
 		var err error
 
 		BeforeEach(func() {
-			resp = &airship.ReportsAppOpensResponse{
+			resp = &airship.ListAppOpensResponse{
 				Opens: []*airship.ReportsAppOpens{
 					&airship.ReportsAppOpens{
 						Android: 1,
@@ -199,13 +199,13 @@ var _ = Describe("Reports", func() {
 				w.Write(b)
 			})
 
-			params = &airship.ReportsAppOpensParams{
+			params = &airship.ListAppOpensParams{
 				Start:     "2018-08-28 00:00:00",
 				End:       "2018-08-29 13:30:45",
 				Precision: "HOURLY",
 			}
 
-			res, err = client.Reports.Opens(params)
+			res, err = client.Reports.ListOpens(params)
 		})
 
 		It("should not return an error", func() {
@@ -218,13 +218,13 @@ var _ = Describe("Reports", func() {
 	})
 
 	Describe("Get OptIns report with only required params", func() {
-		var res *airship.ReportOptInsResponse
-		var params *airship.ReportsOptInsParams
-		var resp *airship.ReportOptInsResponse
+		var res *airship.ListOptInsResponse
+		var params *airship.ListOptInsParams
+		var resp *airship.ListOptInsResponse
 		var err error
 
 		BeforeEach(func() {
-			resp = &airship.ReportOptInsResponse{
+			resp = &airship.ListOptInsResponse{
 				OptIns: []*airship.ReportsOptIns{
 					&airship.ReportsOptIns{
 						Android: 1,
@@ -250,13 +250,13 @@ var _ = Describe("Reports", func() {
 				w.Write(b)
 			})
 
-			params = &airship.ReportsOptInsParams{
+			params = &airship.ListOptInsParams{
 				Start:     "2018-08-28 00:00:00",
 				End:       "2018-08-29 13:30:45",
 				Precision: "HOURLY",
 			}
 
-			res, err = client.Reports.OptIns(params)
+			res, err = client.Reports.ListOptIns(params)
 		})
 
 		It("should not return an error", func() {
@@ -269,13 +269,13 @@ var _ = Describe("Reports", func() {
 	})
 
 	Describe("Get OptOuts report with only required params", func() {
-		var res *airship.ReportOptOutsResponse
-		var params *airship.ReportsOptOutsParams
-		var resp *airship.ReportOptOutsResponse
+		var res *airship.ListOptOutsResponse
+		var params *airship.ListOptOutsParams
+		var resp *airship.ListOptOutsResponse
 		var err error
 
 		BeforeEach(func() {
-			resp = &airship.ReportOptOutsResponse{
+			resp = &airship.ListOptOutsResponse{
 				OptOuts: []*airship.ReportsOptOuts{
 					&airship.ReportsOptOuts{
 						Android: 1,
@@ -301,13 +301,13 @@ var _ = Describe("Reports", func() {
 				w.Write(b)
 			})
 
-			params = &airship.ReportsOptOutsParams{
+			params = &airship.ListOptOutsParams{
 				Start:     "2018-08-28 00:00:00",
 				End:       "2018-08-29 13:30:45",
 				Precision: "HOURLY",
 			}
 
-			res, err = client.Reports.OptOuts(params)
+			res, err = client.Reports.ListOptOuts(params)
 		})
 
 		It("should not return an error", func() {
@@ -320,13 +320,13 @@ var _ = Describe("Reports", func() {
 	})
 
 	Describe("Get responses report with only required params", func() {
-		var res *airship.ReportsResponsesResponse
-		var params *airship.ReportsResponsesParams
-		var resp *airship.ReportsResponsesResponse
+		var res *airship.ListResponsesResponse
+		var params *airship.ListResponsesParams
+		var resp *airship.ListResponsesResponse
 		var err error
 
 		BeforeEach(func() {
-			resp = &airship.ReportsResponsesResponse{
+			resp = &airship.ListResponsesResponse{
 				Responses: []*airship.ReportsResponses{
 					&airship.ReportsResponses{
 						Android: &airship.ReportsResponsesStats{
@@ -358,13 +358,13 @@ var _ = Describe("Reports", func() {
 				w.Write(b)
 			})
 
-			params = &airship.ReportsResponsesParams{
+			params = &airship.ListResponsesParams{
 				Start:     "2018-08-28 00:00:00",
 				End:       "2018-08-29 13:30:45",
 				Precision: "HOURLY",
 			}
 
-			res, err = client.Reports.Responses(params)
+			res, err = client.Reports.ListResponses(params)
 		})
 
 		It("should not return an error", func() {
@@ -377,13 +377,13 @@ var _ = Describe("Reports", func() {
 	})
 
 	Describe("Get responses list report with only required params", func() {
-		var res *airship.ReportsResponsesListResponse
-		var params *airship.ReportsResponsesListParams
-		var resp *airship.ReportsResponsesListResponse
+		var res *airship.ListResponsePushesResponse
+		var params *airship.ListResponsePushesParams
+		var resp *airship.ListResponsePushesResponse
 		var err error
 
 		BeforeEach(func() {
-			resp = &airship.ReportsResponsesListResponse{
+			resp = &airship.ListResponsePushesResponse{
 				Pushes: []*airship.ReportsResponsesList{
 					&airship.ReportsResponsesList{
 						PushUUID:        "f4db3752-a982-4a2b-994e-7b5fd1c7f02f",
@@ -415,13 +415,13 @@ var _ = Describe("Reports", func() {
 				w.Write(b)
 			})
 
-			params = &airship.ReportsResponsesListParams{
+			params = &airship.ListResponsePushesParams{
 				Start:     "2018-08-28 00:00:00",
 				End:       "2018-08-29 13:30:45",
 				Precision: "HOURLY",
 			}
 
-			res, err = client.Reports.ResponsesList(params)
+			res, err = client.Reports.ListReponsePushes(params)
 		})
 
 		It("should not return an error", func() {
@@ -434,13 +434,13 @@ var _ = Describe("Reports", func() {
 	})
 
 	Describe("Get pushes send report with only required params", func() {
-		var res *airship.ReportsSendsResponse
-		var params *airship.ReportsSendsParams
-		var resp *airship.ReportsSendsResponse
+		var res *airship.ListSendsResponse
+		var params *airship.ListSendsParams
+		var resp *airship.ListSendsResponse
 		var err error
 
 		BeforeEach(func() {
-			resp = &airship.ReportsSendsResponse{
+			resp = &airship.ListSendsResponse{
 				Sends: []*airship.ReportsSends{
 					&airship.ReportsSends{
 						Android: 1,
@@ -466,13 +466,13 @@ var _ = Describe("Reports", func() {
 				w.Write(b)
 			})
 
-			params = &airship.ReportsSendsParams{
+			params = &airship.ListSendsParams{
 				Start:     "2018-08-28 00:00:00",
 				End:       "2018-08-29 13:30:45",
 				Precision: "HOURLY",
 			}
 
-			res, err = client.Reports.Sends(params)
+			res, err = client.Reports.ListSends(params)
 		})
 
 		It("should not return an error", func() {
@@ -485,13 +485,13 @@ var _ = Describe("Reports", func() {
 	})
 
 	Describe("Get time in app report with only required params", func() {
-		var res *airship.ReportsTimeInAppResponse
-		var params *airship.ReportsTimeInAppParams
-		var resp *airship.ReportsTimeInAppResponse
+		var res *airship.ListTimeInAppResponse
+		var params *airship.ListTimeInAppParams
+		var resp *airship.ListTimeInAppResponse
 		var err error
 
 		BeforeEach(func() {
-			resp = &airship.ReportsTimeInAppResponse{
+			resp = &airship.ListTimeInAppResponse{
 				Sends: []*airship.ReportsSends{
 					&airship.ReportsSends{
 						Android: 1,
@@ -517,13 +517,13 @@ var _ = Describe("Reports", func() {
 				w.Write(b)
 			})
 
-			params = &airship.ReportsTimeInAppParams{
+			params = &airship.ListTimeInAppParams{
 				Start:     "2018-08-28 00:00:00",
 				End:       "2018-08-29 13:30:45",
 				Precision: "HOURLY",
 			}
 
-			res, err = client.Reports.TimeInApp(params)
+			res, err = client.Reports.ListTimeInApp(params)
 		})
 
 		It("should not return an error", func() {
