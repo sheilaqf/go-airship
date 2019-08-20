@@ -23,6 +23,8 @@ var (
 	ReportsResponsesListPath = path.Join(ReportsResponsesPath, "list")
 	// ReportsSendsPaths ...
 	ReportsSendsPath = path.Join(ReportsPath, "sends")
+	// ReportsTimeInAppPath ...
+	ReportsTimeInAppPath = path.Join(ReportsPath, "timeinapp")
 )
 
 // ReportsService ...
@@ -426,6 +428,42 @@ func (r *ReportsService) Sends(params *ReportsSendsParams) (*ReportsSendsRespons
 	failure := new(AirshipError)
 
 	res, err := r.sling.New().Get(ReportsSendsPath).QueryStruct(params).Receive(success, failure)
+
+	if err != nil {
+		return nil, err
+	}
+
+	if res.StatusCode != 200 {
+		return nil, failure
+	}
+
+	return success, nil
+}
+
+// ReportsTimeInAppResponse ...
+type ReportsTimeInAppResponse struct {
+	// Sends ...
+	Sends []*ReportsSends `url:"sends,omitempty"`
+	// NextPage ...
+	NextPage string `url:"next_page,omitempty"`
+}
+
+// ReportsTimeInAppParams ...
+type ReportsTimeInAppParams struct {
+	// Start ...
+	Start string `url:"start"`
+	// End ...
+	End string `url:"end"`
+	// Precision ...
+	Precision string `url:"precision"`
+}
+
+// Sends ...
+func (r *ReportsService) TimeInApp(params *ReportsTimeInAppParams) (*ReportsTimeInAppResponse, error) {
+	success := new(ReportsTimeInAppResponse)
+	failure := new(AirshipError)
+
+	res, err := r.sling.New().Get(ReportsTimeInAppPath).QueryStruct(params).Receive(success, failure)
 
 	if err != nil {
 		return nil, err
