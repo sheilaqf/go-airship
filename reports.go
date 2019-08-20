@@ -162,7 +162,7 @@ func (r *ReportsService) Opens(params *ReportsAppOpensParams) (*ReportsAppOpensR
 // ReportOptInsResponse ...
 type ReportOptInsResponse struct {
 	// Opens ...
-	Opens []*ReportsOptIns `url:"optins,omitempty"`
+	OptIns []*ReportsOptIns `url:"optins,omitempty"`
 	// NextPage ...
 	NextPage string `url:"next_page,omitempty"`
 }
@@ -208,7 +208,7 @@ func (r *ReportsService) OptIns(params *ReportsOptInsParams) (*ReportOptInsRespo
 // ReportOptOutsResponse ...
 type ReportOptOutsResponse struct {
 	// Opens ...
-	Opens []*ReportsOptOuts `url:"optouts,omitempty"`
+	OptOuts []*ReportsOptOuts `url:"optouts,omitempty"`
 	// NextPage ...
 	NextPage string `url:"next_page,omitempty"`
 }
@@ -236,6 +236,60 @@ type ReportsOptOutsParams struct {
 // OptOuts ...
 func (r *ReportsService) OptOuts(params *ReportsOptOutsParams) (*ReportOptOutsResponse, error) {
 	success := new(ReportOptOutsResponse)
+	failure := new(AirshipError)
+
+	res, err := r.sling.New().Get(path.Join(ReportsPath, ReportsOptOutsPath)).QueryStruct(params).Receive(success, failure)
+
+	if err != nil {
+		return nil, err
+	}
+
+	if res.StatusCode != 200 {
+		return nil, failure
+	}
+
+	return success, nil
+}
+
+// ReportsResponsesResponse ...
+type ReportsResponsesResponse struct {
+	// Opens ...
+	Responses []*ReportsResponses `url:"responses,omitempty"`
+	// NextPage ...
+	NextPage string `url:"next_page,omitempty"`
+}
+
+// ReportsResponses ...
+type ReportsResponses struct {
+	// Android ...
+	Android *ReportsResponsesStats `json:"android"`
+	// IOS ...
+	IOS *ReportsResponsesStats `json:"ios"`
+	// Date ...
+	Date string `json:"date"`
+}
+
+// ReportsResponsesStats ...
+type ReportsResponsesStats struct {
+	// Direct ...
+	Direct int `json:"direct"`
+	// Influenced ...
+	Influenced int `json:"influenced"`
+}
+
+// ReportsResponsesParams ...
+type ReportsResponsesParams struct {
+	// Start ...
+	Start string `url:"start"`
+	// End ...
+	End string `url:"end"`
+	// Precision ...
+	Precision string `url:"precision"`
+}
+
+// Responses ...
+func (r *ReportsService) Responses(params *ReportsResponsesParams) (*ReportsResponsesResponse, error) {
+	success := new(ReportsResponsesResponse)
 	failure := new(AirshipError)
 
 	res, err := r.sling.New().Get(path.Join(ReportsPath, ReportsOptOutsPath)).QueryStruct(params).Receive(success, failure)

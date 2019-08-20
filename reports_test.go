@@ -225,7 +225,7 @@ var _ = Describe("Reports", func() {
 
 		BeforeEach(func() {
 			resp = &airship.ReportOptInsResponse{
-				Opens: []*airship.ReportsOptIns{
+				OptIns: []*airship.ReportsOptIns{
 					&airship.ReportsOptIns{
 						Android: 1,
 						IOS:     1,
@@ -276,7 +276,7 @@ var _ = Describe("Reports", func() {
 
 		BeforeEach(func() {
 			resp = &airship.ReportOptOutsResponse{
-				Opens: []*airship.ReportsOptOuts{
+				OptOuts: []*airship.ReportsOptOuts{
 					&airship.ReportsOptOuts{
 						Android: 1,
 						IOS:     1,
@@ -308,6 +308,63 @@ var _ = Describe("Reports", func() {
 			}
 
 			res, err = client.Reports.OptOuts(params)
+		})
+
+		It("should not return an error", func() {
+			Ω(err).Should(BeNil())
+		})
+
+		It("should contain all the information", func() {
+			Ω(res).Should(Equal(resp))
+		})
+	})
+
+	Describe("Get reponses report with only required params", func() {
+		var res *airship.ReportsResponsesResponse
+		var params *airship.ReportsResponsesParams
+		var resp *airship.ReportsResponsesResponse
+		var err error
+
+		BeforeEach(func() {
+			resp = &airship.ReportsResponsesResponse{
+				Responses: []*airship.ReportsResponses{
+					&airship.ReportsResponses{
+						Android: &airship.ReportsResponsesStats{
+							Influenced: 1,
+							Direct:     1,
+						},
+						IOS: &airship.ReportsResponsesStats{
+							Influenced: 1,
+							Direct:     1,
+						},
+						Date: "2018-08-28 13:30:45",
+					},
+				},
+			}
+
+			mux.HandleFunc("/api/reports/optouts", func(w http.ResponseWriter, r *http.Request) {
+				Ω(r.Method).Should(Equal("GET"))
+
+				p := r.URL.Query()
+				Ω(p.Get("start")).Should(Equal(params.Start))
+				Ω(p.Get("end")).Should(Equal(params.End))
+				Ω(p.Get("precision")).Should(Equal(params.Precision))
+
+				w.Header().Set("Content-Type", "application/vnd.urbanairship+json; version=3;")
+
+				b, err := json.Marshal(resp)
+				Ω(err).Should(BeNil())
+
+				w.Write(b)
+			})
+
+			params = &airship.ReportsResponsesParams{
+				Start:     "2018-08-28 00:00:00",
+				End:       "2018-08-29 13:30:45",
+				Precision: "HOURLY",
+			}
+
+			res, err = client.Reports.Responses(params)
 		})
 
 		It("should not return an error", func() {
