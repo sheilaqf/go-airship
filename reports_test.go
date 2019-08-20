@@ -319,7 +319,7 @@ var _ = Describe("Reports", func() {
 		})
 	})
 
-	Describe("Get reponses report with only required params", func() {
+	Describe("Get responses report with only required params", func() {
 		var res *airship.ReportsResponsesResponse
 		var params *airship.ReportsResponsesParams
 		var resp *airship.ReportsResponsesResponse
@@ -342,7 +342,7 @@ var _ = Describe("Reports", func() {
 				},
 			}
 
-			mux.HandleFunc("/api/reports/optouts", func(w http.ResponseWriter, r *http.Request) {
+			mux.HandleFunc("/api/reports/responses", func(w http.ResponseWriter, r *http.Request) {
 				Ω(r.Method).Should(Equal("GET"))
 
 				p := r.URL.Query()
@@ -376,7 +376,7 @@ var _ = Describe("Reports", func() {
 		})
 	})
 
-	Describe("Get reponses list report with only required params", func() {
+	Describe("Get responses list report with only required params", func() {
 		var res *airship.ReportsResponsesListResponse
 		var params *airship.ReportsResponsesListParams
 		var resp *airship.ReportsResponsesListResponse

@@ -6,6 +6,23 @@ import (
 	"github.com/dghubble/sling"
 )
 
+var (
+	// ReportsDevicesPath ...
+	ReportsDevicesPath = path.Join(ReportsPath, "devices")
+	// ReportsEventsPath ...
+	ReportsEventsPath = path.Join(ReportsPath, "events")
+	// ReportsAppOpensPath ...
+	ReportsAppOpensPath = path.Join(ReportsPath, "opens")
+	// ReportsOptInsPath ...
+	ReportsOptInsPath = path.Join(ReportsPath, "optins")
+	// ReportsOptInsPath ...
+	ReportsOptOutsPath = path.Join(ReportsPath, "optouts")
+	// ReportsResponsesPath ...
+	ReportsResponsesPath = path.Join(ReportsPath, "responses")
+	// ReportsResponseListPath ...
+	ReportsResponsesListPath = path.Join(ReportsResponsesPath, "list")
+)
+
 // ReportsService ...
 type ReportsService struct {
 	sling *sling.Sling
@@ -40,7 +57,7 @@ func (r *ReportsService) Devices(params *ReportsDevicesParams) (*ReportsDevicesR
 	success := new(ReportsDevicesResponse)
 	failure := new(AirshipError)
 
-	res, err := r.sling.New().Get(path.Join(ReportsPath, ReportsDevicesPath)).QueryStruct(params).Receive(success, failure)
+	res, err := r.sling.New().Get(ReportsDevicesPath).QueryStruct(params).Receive(success, failure)
 
 	if err != nil {
 		return nil, err
@@ -100,7 +117,7 @@ func (r *ReportsService) Events(params *ReportsEventsParams) (*ReportsEventsResp
 	success := new(ReportsEventsResponse)
 	failure := new(AirshipError)
 
-	res, err := r.sling.New().Get(path.Join(ReportsPath, ReportsEventsPath)).QueryStruct(params).Receive(success, failure)
+	res, err := r.sling.New().Get(ReportsEventsPath).QueryStruct(params).Receive(success, failure)
 
 	if err != nil {
 		return nil, err
@@ -146,7 +163,7 @@ func (r *ReportsService) Opens(params *ReportsAppOpensParams) (*ReportsAppOpensR
 	success := new(ReportsAppOpensResponse)
 	failure := new(AirshipError)
 
-	res, err := r.sling.New().Get(path.Join(ReportsPath, ReportsAppOpensPath)).QueryStruct(params).Receive(success, failure)
+	res, err := r.sling.New().Get(ReportsAppOpensPath).QueryStruct(params).Receive(success, failure)
 
 	if err != nil {
 		return nil, err
@@ -192,7 +209,7 @@ func (r *ReportsService) OptIns(params *ReportsOptInsParams) (*ReportOptInsRespo
 	success := new(ReportOptInsResponse)
 	failure := new(AirshipError)
 
-	res, err := r.sling.New().Get(path.Join(ReportsPath, ReportsOptInsPath)).QueryStruct(params).Receive(success, failure)
+	res, err := r.sling.New().Get(ReportsOptInsPath).QueryStruct(params).Receive(success, failure)
 
 	if err != nil {
 		return nil, err
@@ -238,7 +255,7 @@ func (r *ReportsService) OptOuts(params *ReportsOptOutsParams) (*ReportOptOutsRe
 	success := new(ReportOptOutsResponse)
 	failure := new(AirshipError)
 
-	res, err := r.sling.New().Get(path.Join(ReportsPath, ReportsOptOutsPath)).QueryStruct(params).Receive(success, failure)
+	res, err := r.sling.New().Get(ReportsOptOutsPath).QueryStruct(params).Receive(success, failure)
 
 	if err != nil {
 		return nil, err
@@ -292,7 +309,7 @@ func (r *ReportsService) Responses(params *ReportsResponsesParams) (*ReportsResp
 	success := new(ReportsResponsesResponse)
 	failure := new(AirshipError)
 
-	res, err := r.sling.New().Get(path.Join(ReportsPath, ReportsOptOutsPath)).QueryStruct(params).Receive(success, failure)
+	res, err := r.sling.New().Get(ReportsResponsesPath).QueryStruct(params).Receive(success, failure)
 
 	if err != nil {
 		return nil, err
@@ -360,7 +377,7 @@ func (r *ReportsService) ResponsesList(params *ReportsResponsesListParams) (*Rep
 	success := new(ReportsResponsesListResponse)
 	failure := new(AirshipError)
 
-	res, err := r.sling.New().Get(path.Join(ReportsPath, ReportsResponsesListPath)).QueryStruct(params).Receive(success, failure)
+	res, err := r.sling.New().Get(ReportsResponsesListPath).QueryStruct(params).Receive(success, failure)
 
 	if err != nil {
 		return nil, err
