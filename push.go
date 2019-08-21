@@ -14,7 +14,7 @@ type PushService struct {
 // Push ...
 type Push struct {
 	// Audience ...
-	Audience map[string][]AudienceSelector `json:"audience"`
+	Audience map[string][]*AudienceSelector `json:"audience"`
 	// Campaigns ...
 	Campaigns []*Campaign `json:"campaigns,omitempty"`
 	// DeviceTypes ...
@@ -28,7 +28,7 @@ type InAppMessage struct {
 	// Alert ...
 	Alert string `json:"alert"`
 	// Display ...
-	Display InAppMessageDisplay `json:"display,omitempty"`
+	Display *InAppMessageDisplay `json:"display,omitempty"`
 }
 
 // InAppMessageDisplay ...
@@ -182,11 +182,11 @@ func newPushService(sling *sling.Sling) *PushService {
 }
 
 // Push ...
-func (p *PushService) Push(push []*Push) (*Response, error) {
+func (p *PushService) PostPush(pushs []*Push) (*Response, error) {
 	success := new(Response)
 	failure := new(AirshipError)
 
-	res, err := p.sling.New().BodyJSON(push).Receive(success, failure)
+	res, err := p.sling.New().Post(PushPath).BodyJSON(pushs).Receive(success, failure)
 	if err != nil {
 		return nil, err
 	}
