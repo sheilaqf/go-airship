@@ -35,5 +35,3 @@ type AirshipErrorDetailsLocation struct {
 func (l AirshipError) Error() string {
 	return l.Message
 }
-
-var ()
