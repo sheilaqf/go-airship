@@ -231,7 +231,7 @@ func newPushService(sling *sling.Sling) *PushService {
 	}
 }
 
-// Push ...
+// PostPush ...
 func (p *PushService) PostPush(pushs []*Push) (*Response, error) {
 	success := new(Response)
 	failure := new(AirshipError)

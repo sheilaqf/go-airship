@@ -458,7 +458,7 @@ type ListTimeInAppParams struct {
 	Precision string `url:"precision"`
 }
 
-// Sends ...
+// ListTimeInApp ...
 func (r *ReportsService) ListTimeInApp(params *ListTimeInAppParams) (*ListTimeInAppResponse, error) {
 	success := new(ListTimeInAppResponse)
 	failure := new(AirshipError)
