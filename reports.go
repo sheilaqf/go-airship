@@ -1,6 +1,7 @@
 package airship
 
 import (
+	"net/http"
 	"path"
 
 	"github.com/dghubble/sling"
@@ -67,7 +68,7 @@ func (r *ReportsService) GetDevices(params *GetDevicesParams) (*GetDevicesRespon
 		return nil, err
 	}
 
-	if res.StatusCode != 200 {
+	if res.StatusCode != http.StatusOK {
 		return nil, failure
 	}
 
@@ -127,7 +128,7 @@ func (r *ReportsService) GetEvents(params *GetEventsParams) (*GetEventsResponse,
 		return nil, err
 	}
 
-	if res.StatusCode != 200 {
+	if res.StatusCode != http.StatusOK {
 		return nil, failure
 	}
 
@@ -173,7 +174,7 @@ func (r *ReportsService) ListOpens(params *ListAppOpensParams) (*ListAppOpensRes
 		return nil, err
 	}
 
-	if res.StatusCode != 200 {
+	if res.StatusCode != http.StatusOK {
 		return nil, failure
 	}
 
@@ -219,7 +220,7 @@ func (r *ReportsService) ListOptIns(params *ListOptInsParams) (*ListOptInsRespon
 		return nil, err
 	}
 
-	if res.StatusCode != 200 {
+	if res.StatusCode != http.StatusOK {
 		return nil, failure
 	}
 
@@ -265,7 +266,7 @@ func (r *ReportsService) ListOptOuts(params *ListOptOutsParams) (*ListOptOutsRes
 		return nil, err
 	}
 
-	if res.StatusCode != 200 {
+	if res.StatusCode != http.StatusOK {
 		return nil, failure
 	}
 
@@ -319,7 +320,7 @@ func (r *ReportsService) ListResponses(params *ListResponsesParams) (*ListRespon
 		return nil, err
 	}
 
-	if res.StatusCode != 200 {
+	if res.StatusCode != http.StatusOK {
 		return nil, failure
 	}
 
@@ -387,7 +388,7 @@ func (r *ReportsService) ListReponsePushes(params *ListResponsePushesParams) (*L
 		return nil, err
 	}
 
-	if res.StatusCode != 200 {
+	if res.StatusCode != http.StatusOK {
 		return nil, failure
 	}
 
@@ -433,7 +434,7 @@ func (r *ReportsService) ListSends(params *ListSendsParams) (*ListSendsResponse,
 		return nil, err
 	}
 
-	if res.StatusCode != 200 {
+	if res.StatusCode != http.StatusOK {
 		return nil, failure
 	}
 
@@ -469,7 +470,7 @@ func (r *ReportsService) ListTimeInApp(params *ListTimeInAppParams) (*ListTimeIn
 		return nil, err
 	}
 
-	if res.StatusCode != 200 {
+	if res.StatusCode != http.StatusOK {
 		return nil, failure
 	}
 

@@ -1,6 +1,8 @@
 package airship
 
 import (
+	"net/http"
+
 	"github.com/dghubble/sling"
 )
 
@@ -72,7 +74,39 @@ func (s *SchedulesService) ListSchedules(params *ListSchedulesParams) (*ListSche
 		return nil, err
 	}
 
-	if res.StatusCode != 200 {
+	if res.StatusCode != http.StatusOK {
+		return nil, failure
+	}
+
+	return success, nil
+}
+
+// PostScheduleResponse ...
+type PostScheduleResponse struct {
+	// OK ...
+	OK bool `json:"ok,omitempty"`
+	// OperationID ...
+	OperationID string `json:"operation_id,omitempty"`
+	// ScheduleIDs ...
+	ScheduleIDs []string `json:"schedule_ids,omitempty"`
+	// ScheduleURLS ...
+	ScheduleURLS []string `json:"schedule_urls,omitempty"`
+	// Schedules ...
+	Schedules []*Schedule `json:"schedules,omitempty"`
+}
+
+// PostSchedule ...
+func (s *SchedulesService) PostSchedule(schedules []*Schedule) (*PostScheduleResponse, error) {
+	success := new(PostScheduleResponse)
+	failure := new(AirshipError)
+
+	res, err := s.sling.New().Post(SchedulesPath).BodyJSON(schedules).Receive(success, failure)
+
+	if err != nil {
+		return nil, err
+	}
+
+	if res.StatusCode != http.StatusCreated {
 		return nil, failure
 	}
 

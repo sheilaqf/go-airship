@@ -26,7 +26,7 @@ func main() {
 	client := airship.New(httpClient, airship.EndpointURL(airship.AirshipNorthAmericaURL), airship.Auth(apiKey, apiSecret))
 
 	// query the app
-	res, err := client.Reports.Devices(&airship.ReportsDevicesParams{})
+	res, err := client.Reports.ListOpens(&airship.ListAppOpensParams{})
 	if err != nil {
 		panic(err)
 	}

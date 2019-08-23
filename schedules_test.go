@@ -1,7 +1,9 @@
 package airship_test
 
 import (
+	"bytes"
 	"encoding/json"
+	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"strconv"
@@ -11,7 +13,7 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-var _ = Describe("Reports", func() {
+var _ = Describe("Schedules", func() {
 
 	var client *airship.Client
 	var httpClient *http.Client
@@ -74,6 +76,62 @@ var _ = Describe("Reports", func() {
 
 		It("should contain all the information", func() {
 			Ω(res).Should(Equal(resp))
+		})
+	})
+
+	Describe("Post scheduled pushes", func() {
+		var res *airship.PostScheduleResponse
+		var schedules []*airship.Schedule
+		var err error
+
+		BeforeEach(func() {
+			res = &airship.PostScheduleResponse{
+				OK:          true,
+				OperationID: "1234",
+			}
+
+			schedules = []*airship.Schedule{
+				&airship.Schedule{
+					Name: "foo",
+				},
+			}
+
+			mux.HandleFunc("/api/schedules", func(w http.ResponseWriter, r *http.Request) {
+				Ω(r.Method).Should(Equal("POST"))
+
+				w.Header().Set("Content-Type", "application/vnd.urbanairship+json; version=3;")
+				w.WriteHeader(http.StatusCreated)
+
+				// Read the content
+				var b []byte
+				Ω(r.Body).ShouldNot(BeNil())
+
+				b, err = ioutil.ReadAll(r.Body)
+				Ω(err).Should(BeNil())
+
+				// Restore the io.ReadCloser to its original state
+				r.Body = ioutil.NopCloser(bytes.NewBuffer(b))
+
+				var p []*airship.Schedule
+				err = json.Unmarshal(b, &p)
+				Ω(err).Should(BeNil())
+				Ω(len(schedules)).Should(Equal(len(p)))
+
+				b, err = json.Marshal(res)
+				Ω(err).Should(BeNil())
+
+				w.Write(b)
+			})
+
+			res, err = client.Schedules.PostSchedule(schedules)
+		})
+
+		It("should not return an error", func() {
+			Ω(err).Should(BeNil())
+		})
+
+		It("should contain vaild response", func() {
+			Ω(res).Should(Equal(res))
 		})
 	})
 })
