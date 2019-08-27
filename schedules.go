@@ -2,6 +2,7 @@ package airship
 
 import (
 	"net/http"
+	"path"
 
 	"github.com/dghubble/sling"
 )
@@ -111,4 +112,46 @@ func (s *SchedulesService) PostSchedule(schedules []*Schedule) (*PostScheduleRes
 	}
 
 	return success, nil
+}
+
+// PutScheduleResponse ...
+type PutScheduleResponse struct {
+	// OK ...
+	OK bool `json:"ok,omitempty"`
+	// OperationID ...
+	OperationID string `json:"operation_id,omitempty"`
+	// ScheduleURLS ...
+	ScheduleURLS []string `json:"schedule_urls,omitempty"`
+	// Schedules ...
+	Schedules []*Schedule `json:"schedules,omitempty"`
+}
+
+// PutSchedule ...
+func (s *SchedulesService) PutSchedule(id string, schedule *Schedule) (*PutScheduleResponse, error) {
+	success := new(PutScheduleResponse)
+	failure := new(AirshipError)
+
+	res, err := s.sling.New().Put(path.Join(SchedulesPath, id)).BodyJSON(schedule).Receive(success, failure)
+
+	if err != nil {
+		return nil, err
+	}
+
+	if res.StatusCode != http.StatusOK {
+		return nil, failure
+	}
+
+	return success, nil
+}
+
+// DeleteSchedule ...
+func (s *SchedulesService) DeleteSchedule(id string) error {
+	success := new(interface{})
+
+	_, err := s.sling.New().Delete(path.Join(SchedulesPath, id)).ReceiveSuccess(success)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
