@@ -4,11 +4,11 @@ package airship
 // in form of JSN response.
 type AirshipError struct {
 	// Details ...
-	Details string `json:"details,omitempty"`
+	Details AirshipErrorDetails `json:"details,omitempty"`
 	// Message ...
-	Message string `json:"messsage"`
+	Error string `json:"error"`
 	// Code ...
-	Code int `json:"code,omitempty"`
+	Code int `json:"error_code,omitempty"`
 	// OK ...
 	OK bool `json:"ok"`
 }
@@ -29,9 +29,4 @@ type AirshipErrorDetailsLocation struct {
 	Column int `json:"column,omitempty"`
 	// Column ...
 	Line int `json:"line,omitempty"`
-}
-
-// Error is returning a string to confirm to the error interface
-func (l AirshipError) Error() string {
-	return l.Message
 }
