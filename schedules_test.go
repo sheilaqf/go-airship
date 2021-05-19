@@ -8,9 +8,9 @@ import (
 	"net/http/httptest"
 	"strconv"
 
-	airship "github.com/Onefootball/go-airship"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
+	airship "github.com/sheilaqf/go-airship"
 )
 
 var _ = Describe("Schedules", func() {

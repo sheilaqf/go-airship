@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"net/http"
 
-	airship "github.com/Onefootball/go-airship"
+	airship "github.com/sheilaqf/go-airship"
 )
 
 var (

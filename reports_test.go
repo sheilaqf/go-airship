@@ -5,9 +5,9 @@ import (
 	"net/http"
 	"net/http/httptest"
 
-	airship "github.com/Onefootball/go-airship"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
+	airship "github.com/sheilaqf/go-airship"
 )
 
 var _ = Describe("Reports", func() {
@@ -80,8 +80,8 @@ var _ = Describe("Reports", func() {
 
 		BeforeEach(func() {
 			airshipErr = &airship.AirshipError{
-				OK:      false,
-				Message: "airship: fooBar",
+				OK:    false,
+				Error: "airship: fooBar",
 			}
 
 			mux.HandleFunc("/api/reports/devices", func(w http.ResponseWriter, r *http.Request) {

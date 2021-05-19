@@ -7,9 +7,9 @@ import (
 	"net/http"
 	"net/http/httptest"
 
-	airship "github.com/Onefootball/go-airship"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
+	airship "github.com/sheilaqf/go-airship"
 )
 
 var _ = Describe("Push", func() {
