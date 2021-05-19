@@ -6,7 +6,7 @@ type AirshipError struct {
 	// Details ...
 	Details AirshipErrorDetails `json:"details,omitempty"`
 	// Message ...
-	Error string `json:"error"`
+	Message string `json:"error"`
 	// Code ...
 	Code int `json:"error_code,omitempty"`
 	// OK ...
@@ -29,4 +29,9 @@ type AirshipErrorDetailsLocation struct {
 	Column int `json:"column,omitempty"`
 	// Column ...
 	Line int `json:"line,omitempty"`
+}
+
+// Error is returning a string to confirm to the error interface
+func (l AirshipError) Error() string {
+	return l.Message
 }
