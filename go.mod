@@ -1,4 +1,4 @@
-module github.com/Onefootball/go-airship
+module github.com/sheilaqf/go-airship
 
 go 1.12
 
