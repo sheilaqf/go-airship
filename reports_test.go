@@ -80,8 +80,8 @@ var _ = Describe("Reports", func() {
 
 		BeforeEach(func() {
 			airshipErr = &airship.AirshipError{
-				OK:    false,
-				Error: "airship: fooBar",
+				OK:      false,
+				Message: "airship: fooBar",
 			}
 
 			mux.HandleFunc("/api/reports/devices", func(w http.ResponseWriter, r *http.Request) {
